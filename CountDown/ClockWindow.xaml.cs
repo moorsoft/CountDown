@@ -1,28 +1,24 @@
 ﻿using CountDown.Extensions;
 using CountDown.ViewModel;
-using System;
-using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
+
+using Screen = System.Windows.Forms.Screen;
 
 namespace CountDown
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ClockWindow : Window
     {
 
-        public MainWindow()
+        public ClockWindow(int monitorNumber = 2)
         {
             InitializeComponent();
 
-            Screen targetScreen = (Screen.AllScreens.Length > 1) ? Screen.AllScreens[1] : Screen.AllScreens[0];
+            Screen targetScreen = (Screen.AllScreens.Length > 1) ? Screen.AllScreens[monitorNumber - 1] : Screen.AllScreens[0];
 
             var viewport = targetScreen.WorkingArea;
             this.Top = viewport.Top;

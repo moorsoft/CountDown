@@ -58,8 +58,11 @@
     </ApplicationDefinition>
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Extensions\BitmapExtensions.cs" />
+    <Compile Include="MonitorSelection.xaml.cs">
+      <DependentUpon>MonitorSelection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\MainVM.cs" />
-    <Page Include="MainWindow.xaml">
+    <Page Include="ClockWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -67,10 +70,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="ClockWindow.xaml.cs">
+      <DependentUpon>ClockWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MonitorSelection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

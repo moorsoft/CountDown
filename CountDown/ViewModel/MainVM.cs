@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -31,11 +26,11 @@ namespace CountDown.ViewModel
             {
                 MeetingStartTime = new DateTime(MeetingStartTime.Year, MeetingStartTime.Month, MeetingStartTime.Day, MeetingStartTime.Hour, 0, 0).AddMinutes(30);
             }
-            //MeetingStartTime = DateTime.Now.AddMinutes(CountDownMinutes).AddSeconds(5);
+            // MeetingStartTime = DateTime.Now.AddMinutes(CountDownMinutes).AddSeconds(5);
             timer.Interval = TimeSpan.FromMilliseconds(50);
             timer.Tick += Timer_Tick;
             timer.Start();
-
+            Opacity = 1;
         }
 
         private double progressValue = 0;
@@ -101,7 +96,6 @@ namespace CountDown.ViewModel
             //ProgressValue += 1;
             TimeSpan timeToGo = MeetingStartTime - DateTime.Now;
             Visible = timeToGo.TotalSeconds < CountDownSeconds;
-            Opacity = (Visible ? 1 : 0);
             if (Visible)
             {
                 if (timeToGo.TotalSeconds > 0)

@@ -1,7 +1,5 @@
 ﻿using System.Windows;
 
-using Screen = System.Windows.Forms.Screen;
-
 namespace CountDown
 {
     /// <summary>
@@ -13,22 +11,18 @@ namespace CountDown
         {
             this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
-            ClockWindow mainView;
             // more than 2 monitors we need to ask to select which monitor
-            if (Screen.AllScreens.Length > 2)
+            MonitorSelection select = new MonitorSelection();
+            if (select.ShowDialog() ?? false)
             {
-                MonitorSelection select = new MonitorSelection();
-                select.ShowDialog();
-
-                mainView = new ClockWindow(select.SelectedMonitor);
+                ClockWindow mainView = new ClockWindow((select.SelectVocals == 1), select.MonitorIndex + 2);
                 mainView.Show();
+                mainView.Closed += (o, eventArgs) => Shutdown();
             }
             else
             {
-                mainView = new ClockWindow();
-                mainView.Show();
+                Shutdown();
             }
-            mainView.Closed += (o, eventArgs) => Shutdown();
         }
     }
 }

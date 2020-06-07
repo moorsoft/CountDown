@@ -1,6 +1,7 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
-
+using System.Windows.Documents;
 using Screen = System.Windows.Forms.Screen;
 
 namespace CountDown
@@ -10,24 +11,31 @@ namespace CountDown
     /// </summary>
     public partial class MonitorSelection : Window
     {
-        public int SelectedMonitor { get; private set; } = 2;
+        public int MonitorIndex { get; set; } = 0;
+
+        public int SelectVocals { get; set; } = 0;
+
+        public List<Monitor> MonitorList { get; set; } = new List<Monitor>();
+
         public MonitorSelection()
         {
             InitializeComponent();
+            this.DataContext = this;
 
-            BtnMonitor2.Visibility = (Screen.AllScreens.Length > 1 ? Visibility.Visible : Visibility.Collapsed);
-            BtnMonitor3.Visibility = (Screen.AllScreens.Length > 2 ? Visibility.Visible : Visibility.Collapsed);
-            BtnMonitor4.Visibility = (Screen.AllScreens.Length > 3 ? Visibility.Visible : Visibility.Collapsed);
-            BtnMonitor5.Visibility = (Screen.AllScreens.Length > 4 ? Visibility.Visible : Visibility.Collapsed);
-        }
-
-        private void BtnMonitor_Click(object sender, RoutedEventArgs e)
-        {
-            if (int.TryParse((sender as Button).Tag.ToString(), out int monitor))
+            for(int i = 1; i < Screen.AllScreens.Length; i++)
             {
-                SelectedMonitor = monitor;
-                DialogResult = true;
+                MonitorList.Add(new Monitor() { MonitorName = $"Monitor {i+1}" });
             }
         }
+
+        private void BtnOK_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+        }
+    }
+
+    public class Monitor
+    {
+        public string MonitorName { get; set; }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace CountDown.ViewModel
@@ -15,7 +17,11 @@ namespace CountDown.ViewModel
 
         readonly DispatcherTimer timer = new DispatcherTimer();
 
-        public MainVM()
+        readonly MediaPlayer mediaPlayer = new MediaPlayer();
+        readonly string[] MusicFiles = { };
+        readonly Random random = new Random();
+
+        public MainVM(bool PlayVocal)
         {
             MeetingStartTime = DateTime.Now;
             if (DateTime.Now.Minute > 30)
@@ -26,11 +32,25 @@ namespace CountDown.ViewModel
             {
                 MeetingStartTime = new DateTime(MeetingStartTime.Year, MeetingStartTime.Month, MeetingStartTime.Day, MeetingStartTime.Hour, 0, 0).AddMinutes(30);
             }
-            // MeetingStartTime = DateTime.Now.AddMinutes(CountDownMinutes).AddSeconds(5);
+            //MeetingStartTime = DateTime.Now.AddMinutes(CountDownMinutes).AddSeconds(5);
+
+            string folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic), "JWLibrary");
+            if (Directory.Exists(folder))
+            {
+                MusicFiles = System.IO.Directory.GetFiles(folder, (PlayVocal ? "sjjc*.mp3" : "sjjm*.mp3"));
+
+                mediaPlayer.MediaEnded += MediaPlayer_MediaEnded;
+                PlayNewMedia();
+            }
             timer.Interval = TimeSpan.FromMilliseconds(50);
             timer.Tick += Timer_Tick;
             timer.Start();
             Opacity = 1;
+        }
+
+        private void MediaPlayer_MediaEnded(object sender, EventArgs e)
+        {
+            PlayNewMedia();
         }
 
         private double progressValue = 0;
@@ -91,6 +111,16 @@ namespace CountDown.ViewModel
             }
         }
 
+        private void PlayNewMedia()
+        {
+            if (MusicFiles?.Length > 0)
+            {
+                string filename = MusicFiles[random.Next(MusicFiles.Length)];
+                mediaPlayer.Open(new Uri(filename));
+                mediaPlayer.Play();
+            }
+        }
+
         private void Timer_Tick(object sender, EventArgs e)
         {
             //ProgressValue += 1;
@@ -108,6 +138,7 @@ namespace CountDown.ViewModel
                     ProgressValue = CountDownSeconds;
                     DownTime = "0:00";
                     timer.Stop();
+                    mediaPlayer.Stop();
                     Application.Current.Shutdown();
                 }
             }

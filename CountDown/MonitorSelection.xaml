@@ -5,13 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CountDown"
         mc:Ignorable="d"
-        Title="Select Monitor Used" Height="450" Width="250">
+        Title="Select Monitor and Music Type" Height="384" Width="480">
     <Grid>
-        <StackPanel VerticalAlignment="Stretch" >
-            <Button Name="BtnMonitor2" Margin="20" Padding="20" Tag="2" Click="BtnMonitor_Click">Monitor 2</Button>
-            <Button Name="BtnMonitor3" Margin="20" Padding="20" Tag="3" Click="BtnMonitor_Click">Monitor 3</Button>
-            <Button Name="BtnMonitor4" Margin="20" Padding="20" Tag="4" Click="BtnMonitor_Click">Monitor 4</Button>
-            <Button Name="BtnMonitor5" Margin="20" Padding="20" Tag="5" Click="BtnMonitor_Click">Monitor 5</Button>
-        </StackPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ListBox ItemsSource="{Binding MonitorList}" SelectedIndex="{Binding MonitorIndex}" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="3">
+                        <TextBlock Text="{Binding MonitorName}" FontSize="24" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <ListBox SelectedIndex="{Binding SelectVocals}" FontSize="24" Grid.Column="1" >
+            <ListBoxItem>Music Only</ListBoxItem>
+            <ListBoxItem>Music with Vocals</ListBoxItem>
+        </ListBox>
+        <Button Name="BtnOK" Margin="20" Padding="20" Tag="5" Click="BtnOK_Click" Grid.Row="1" Grid.ColumnSpan="2">OK</Button>
     </Grid>
 </Window>

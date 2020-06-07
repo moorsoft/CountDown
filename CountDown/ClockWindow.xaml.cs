@@ -14,7 +14,7 @@ namespace CountDown
     public partial class ClockWindow : Window
     {
 
-        public ClockWindow(int monitorNumber = 2)
+        public ClockWindow(bool PlayVocal, int monitorNumber = 2)
         {
             InitializeComponent();
 
@@ -40,7 +40,7 @@ namespace CountDown
 
                 Background = new ImageBrush(bmp.ToBitmapSource());
             }
-            DataContext = new MainVM();
+            DataContext = new MainVM(PlayVocal);
         }
     }
 }

@@ -16,7 +16,7 @@
         FontWeight="Bold"
         FontSize="80"
         Topmost="True"
-        Visibility="{Binding Visible, Converter={conv:BoolToVisibilityConverter}}" Loaded="Window_Loaded" >
+        Visibility="{Binding Visible, Converter={conv:BoolToVisibilityConverter}}" Loaded="Window_Loaded">
         <Viewbox Stretch="Uniform">
         <Grid>
             <StackPanel Width="1920" Height="1080" />

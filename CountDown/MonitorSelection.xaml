@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CountDown"
         mc:Ignorable="d"
-        Title="Select Monitor and Music Type" Height="600" Width="480">
+        Title="Select Monitor and Music Type" Height="600" Width="480" Closing="Window_Closing">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -30,6 +30,6 @@
             <ListBoxItem>Music Only</ListBoxItem>
             <ListBoxItem>Music with Vocals</ListBoxItem>
         </ListBox>
-        <Button Name="BtnOK" Margin="20" Padding="20" Tag="5" Click="BtnOK_Click" Grid.Row="1" Grid.ColumnSpan="2">OK</Button>
+        <Button Name="BtnOK" Margin="20" Padding="20" Tag="5" Click="BtnOK_Click" Grid.Row="1" Grid.ColumnSpan="2" Content="{Binding Path=ButtonText,UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
 </Window>

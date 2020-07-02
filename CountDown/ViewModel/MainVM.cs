@@ -37,7 +37,8 @@ namespace CountDown.ViewModel
             {
                 MeetingStartTime = new DateTime(MeetingStartTime.Year, MeetingStartTime.Month, MeetingStartTime.Day, MeetingStartTime.Hour, 0, 0).AddMinutes(30);
             }
-            MeetingStartTime = DateTime.Now.AddMinutes(CountDownMinutes).AddSeconds(5);
+            //MeetingStartTime = DateTime.Now.AddMinutes(CountDownMinutes).AddSeconds(2);
+            //MeetingStartTime = DateTime.Now.AddSeconds(5);
 
             string folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic), "JWLibrary");
             if (Directory.Exists(folder))

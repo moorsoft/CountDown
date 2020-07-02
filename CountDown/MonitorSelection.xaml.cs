@@ -1,4 +1,5 @@
-﻿using CountDown.Utils;
+﻿using CountDown.Properties;
+using CountDown.Utils;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows;
@@ -14,8 +15,6 @@ namespace CountDown
     /// </summary>
     public partial class MonitorSelection : Window
     {
-        public int MonitorIndex { get; set; } = 0;
-
         public Monitor SelectedMonitor { get; set; }
 
         public int SelectVocals { get; set; } = 0;
@@ -31,21 +30,27 @@ namespace CountDown
             foreach(var s in Screen.AllScreens)
             {
                 Rectangle resolution = s.Bounds;
-                MonitorList.Add(new Monitor() { MonitorName = $"Monitor {i+1}", Screen = s, ScreenCapture = ScreenUtils.CaptureScreen(s.WorkingArea.Left, s.WorkingArea.Top, s.WorkingArea.Width, s.WorkingArea.Height) });
-                // MonitorList.Add(new Monitor() { MonitorName = $"Monitor {i + 1}", Screen = s });
+                MonitorList.Add(new Monitor() { MonitorNumber = i, MonitorName = $"Monitor {i+1}", Screen = s, ScreenCapture = ScreenUtils.CaptureScreen(s.WorkingArea.Left, s.WorkingArea.Top, s.WorkingArea.Width, s.WorkingArea.Height) });
                 i++;
             }
+            SelectedMonitor = MonitorList[Settings.Default.MonitorNumber];
+            SelectVocals = Settings.Default.MusicType;
         }
 
         private void BtnOK_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = true;
+            Settings.Default.MonitorNumber = SelectedMonitor.MonitorNumber;
+            Settings.Default.MusicType = SelectVocals;
+            Settings.Default.Save();
         }
     }
 
     public class Monitor
     {
         public string MonitorName { get; set; }
+
+        public int MonitorNumber { get; set; }
 
         public Screen Screen { get; set; }
 

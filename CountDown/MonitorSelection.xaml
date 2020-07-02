@@ -15,7 +15,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ListBox ItemsSource="{Binding MonitorList}" SelectedIndex="{Binding MonitorIndex}" SelectedItem="{Binding SelectedMonitor}" >
+        <ListBox ItemsSource="{Binding MonitorList}" SelectedItem="{Binding SelectedMonitor}" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="3">

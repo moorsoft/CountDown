@@ -15,8 +15,8 @@ namespace CountDown
             MonitorSelection select = new MonitorSelection();
             if (select.ShowDialog() ?? false)
             {
-                ClockWindow mainView = new ClockWindow((select.SelectVocals == 1), select.MonitorIndex + 2);
-                mainView.Show();
+                ClockWindow mainView = new ClockWindow((select.SelectVocals == 1), select.SelectedMonitor);
+                //mainView.Show();
                 mainView.Closed += (o, eventArgs) => Shutdown();
             }
             else

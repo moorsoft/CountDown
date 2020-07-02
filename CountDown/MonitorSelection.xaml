@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CountDown"
         mc:Ignorable="d"
-        Title="Select Monitor and Music Type" Height="384" Width="480">
+        Title="Select Monitor and Music Type" Height="600" Width="480">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -15,10 +15,11 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ListBox ItemsSource="{Binding MonitorList}" SelectedIndex="{Binding MonitorIndex}" >
+        <ListBox ItemsSource="{Binding MonitorList}" SelectedIndex="{Binding MonitorIndex}" SelectedItem="{Binding SelectedMonitor}" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="3">
+                        <Rectangle Height ="108" Width="192" Fill="{Binding ScreenCapture}" />
                         <TextBlock Text="{Binding MonitorName}" FontSize="24" />
                     </StackPanel>
                 </DataTemplate>

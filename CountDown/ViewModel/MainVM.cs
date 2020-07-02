@@ -21,6 +21,11 @@ namespace CountDown.ViewModel
         readonly string[] MusicFiles = { };
         readonly Random random = new Random();
 
+        // With vocals
+        //readonly string musicUrl = "https://pubmedia.jw-api.org/GETPUBMEDIALINKS?output=json&pub=sjjc&fileformat=MP3%2CAAC&alllangs=0&langwritten=E&txtCMSLang=E";
+        // With music only
+        //readonly string musicAndVocalsUrl = "https://pubmedia.jw-api.org/GETPUBMEDIALINKS?output=json&pub=sjjm&fileformat=MP3%2CAAC&alllangs=0&langwritten=E&txtCMSLang=E";
+
         public MainVM(bool PlayVocal)
         {
             MeetingStartTime = DateTime.Now;
@@ -32,7 +37,7 @@ namespace CountDown.ViewModel
             {
                 MeetingStartTime = new DateTime(MeetingStartTime.Year, MeetingStartTime.Month, MeetingStartTime.Day, MeetingStartTime.Hour, 0, 0).AddMinutes(30);
             }
-            //MeetingStartTime = DateTime.Now.AddMinutes(CountDownMinutes).AddSeconds(5);
+            MeetingStartTime = DateTime.Now.AddMinutes(CountDownMinutes).AddSeconds(5);
 
             string folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic), "JWLibrary");
             if (Directory.Exists(folder))
@@ -45,7 +50,6 @@ namespace CountDown.ViewModel
             timer.Interval = TimeSpan.FromMilliseconds(50);
             timer.Tick += Timer_Tick;
             timer.Start();
-            Opacity = 1;
         }
 
         private void MediaPlayer_MediaEnded(object sender, EventArgs e)
@@ -92,20 +96,6 @@ namespace CountDown.ViewModel
                 if (visible != value)
                 {
                     visible = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private double opacity = 0;
-        public double Opacity
-        {
-            get => opacity;
-            set
-            {
-                if (opacity != value)
-                {
-                    opacity = value;
                     OnPropertyChanged();
                 }
             }

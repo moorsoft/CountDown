@@ -1,10 +1,7 @@
-﻿using CountDown.Extensions;
-using CountDown.ViewModel;
+﻿using CountDown.ViewModel;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Media;
-
-using Screen = System.Windows.Forms.Screen;
 
 namespace CountDown
 {
@@ -14,33 +11,20 @@ namespace CountDown
     public partial class ClockWindow : Window
     {
 
-        public ClockWindow(bool PlayVocal, int monitorNumber = 2)
+        public ClockWindow(bool PlayVocal, Monitor monitor)
         {
             InitializeComponent();
 
-            Screen targetScreen = (Screen.AllScreens.Length > 1) ? Screen.AllScreens[monitorNumber - 1] : Screen.AllScreens[0];
-
-            var viewport = targetScreen.WorkingArea;
-            this.Top = viewport.Top;
+            var viewport = monitor.Screen.WorkingArea;
             this.Left = viewport.Left;
-            this.Width = viewport.Width;
-            this.Height = viewport.Height;
 
-            using (Bitmap bmp = new Bitmap((int)viewport.Width, (int)viewport.Height))
-            {
-                using (Graphics g = Graphics.FromImage(bmp))
-                {
-                    g.CopyFromScreen((int)this.Left, (int)this.Top, 0, 0, bmp.Size);
-                }
-                FirstColumn.Width = new GridLength(viewport.Width / 5.5);
-                FirstRow.Height = new GridLength(viewport.Width / 5.5);
-                progress.Width = viewport.Width / 6.7;
-                progress.Height = viewport.Width / 6.7;
-                textBlock.FontSize = viewport.Width / 25;
-
-                Background = new ImageBrush(bmp.ToBitmapSource());
-            }
             DataContext = new MainVM(PlayVocal);
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var senderWindow = sender as Window;
+            senderWindow.WindowState = WindowState.Maximized;
         }
     }
 }

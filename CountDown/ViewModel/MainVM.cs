@@ -21,12 +21,7 @@ namespace CountDown.ViewModel
         readonly string[] MusicFiles = { };
         readonly Random random = new Random();
 
-        // With vocals
-        //readonly string musicUrl = "https://pubmedia.jw-api.org/GETPUBMEDIALINKS?output=json&pub=sjjc&fileformat=MP3%2CAAC&alllangs=0&langwritten=E&txtCMSLang=E";
-        // With music only
-        //readonly string musicAndVocalsUrl = "https://pubmedia.jw-api.org/GETPUBMEDIALINKS?output=json&pub=sjjm&fileformat=MP3%2CAAC&alllangs=0&langwritten=E&txtCMSLang=E";
-
-        public MainVM(bool PlayVocal)
+         public MainVM(bool PlayVocal)
         {
             MeetingStartTime = DateTime.Now;
             if (DateTime.Now.Minute > 30)
@@ -116,7 +111,7 @@ namespace CountDown.ViewModel
         {
             //ProgressValue += 1;
             TimeSpan timeToGo = MeetingStartTime - DateTime.Now;
-            Visible = timeToGo.TotalSeconds < CountDownSeconds;
+            Visible = true; // timeToGo.TotalSeconds < CountDownSeconds;
             if (Visible)
             {
                 if (timeToGo.TotalSeconds > 0)
@@ -130,7 +125,6 @@ namespace CountDown.ViewModel
                     DownTime = "0:00";
                     timer.Stop();
                     mediaPlayer.Stop();
-                    Application.Current.Shutdown();
                 }
             }
         }
